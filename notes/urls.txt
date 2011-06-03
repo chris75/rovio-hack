@@ -1,0 +1,9 @@
+http://192.168.0.14/ChangeBrightness.cgi?Brightness=10
+
+Patch pointer of GetVer.cgi:
+http://192.168.0.14//debug.cgi?action=write_mem&address=0x70A14&value=0x9e&size=1
+
+
+http://192.168.0.14//debug.cgi?action=read_mem&&address=0x70A14
+http://192.168.0.14/SetLogo.cgi?showstring=Hello
+
