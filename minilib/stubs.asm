@@ -2,6 +2,7 @@
         .text
         .align  2
         .global hook_func
+        .global test_api
         .type   hook_func, %function
 hook_func:
         str     fp, [sp, #-4]!
@@ -16,9 +17,10 @@ hook_func:
         bx      lr
         
 _addr_add_task:	.word 0x00C9E70
+	.org 12345
+test_api:
+	ldmfd   sp!, {fp}
 
-add_task:
-		ldr r0,[_addr_add_task]
 
         
         
