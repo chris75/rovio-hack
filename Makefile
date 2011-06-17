@@ -25,3 +25,7 @@ showdump:
 	$(OBJDUMP) -b elf32-littlearm -d bin/sample.elf
 
 
+upload:
+	echo "Uploading sample.bin to Rovio"
+
+
