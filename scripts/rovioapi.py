@@ -92,3 +92,17 @@ class CRovioApiClient:
       if toFile:
         fileOut.close()                
       return bytes          
+
+    def WriteMem(self,start,values,fromFile=None):
+      """ For ex : start= '0x1234' values: '0x01,0x02....' """
+      address=eval(start)
+      if fromFile:
+          lstValues=open(fromFile,"r").read()
+      else:
+        lstValues=values.split(",")
+      for i in lstValues:
+        output=self.CGIGet("/debug.cgi?action=write_mem&address=0x%08x&size=0x01&value=%s"%(address,i))
+        address+=1
+        print "Write =>",i
+      return bytes          
+

@@ -1,4 +1,4 @@
-#!usr/bin/python
+#!/usr/bin/python
 
 import os,sys,httplib
 import base64,time
@@ -6,7 +6,7 @@ import string,re
 
 import rovioapi
 
-if len(sys.argv) <= 4:
+if len(sys.argv) <= 5:
   print "Usage: roviocmd.py <ip> <login> <passwd> <command>"
   print " get_revision reboot"
   raise SystemExit
@@ -48,4 +48,7 @@ if g_command=="read_mem":
   elif g_testArgs[2]=="binary":
     bytes = rovio.ReadMem(g_args[0],g_args[1],g_args[3])
     print "Saved in:",g_args[3]  
+elif g_command=="write_mem":
+	bytes = rovio.WriteMem(g_args[0],g_args[1])
+  
 print "Done"
