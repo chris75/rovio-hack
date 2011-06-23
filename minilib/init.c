@@ -1,6 +1,6 @@
-extern void test_api();
+
 int func(int i )
 {
-  test_api();
+  ((void (*)()) 0x12345678)();
   return i+1;
 }

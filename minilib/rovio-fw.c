@@ -1,3 +1,3 @@
 
 
-(void *) (*AddHttpString)(...) = 0x1234;
+/* void  (*AddHttpString)() = 0x1234; */

@@ -16,10 +16,6 @@ hook_func:
         ldmfd   sp!, {fp}
         bx      lr
         
-_addr_add_task:	.word 0x00C9E70
-	.org 12345
-test_api:
-	ldmfd   sp!, {fp}
 
 
         
