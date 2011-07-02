@@ -9,10 +9,11 @@ import rovioapi
 if len(sys.argv) < 4:
   print "Usage: roviocmd.py <ip> <login> <passwd> <command>"
   print """ cmd:
-     get_version                             # Returns version of Rovio firmware should be 5.03
-     reboot                                  # Warm reboot now
-     read_mem <addr> <len> text              # Reads len bytes at address addr from Rovio memory and print as hex
-     read_mem <addr> <len> file <file-name>  # Reads len bytes at address addr from Rovio memory and save in file
+     get_version                          # Returns version of Rovio firmware should be 5.03
+     reboot                               # Warm reboot now
+     read_mem <addr> <len> [<file-name>]  # Reads len bytes at address addr from Rovio memory and eventually save in file
+     write_mem <addr> hex  <hexstring>    # write to Rovio memory at <addr>, hex string like 0x01,0x02,.....
+     write_mem <addr> file <filename>     # write to Rovio memory at <addr> content of <filename> 
 """
   raise SystemExit
 
@@ -32,12 +33,9 @@ done=False
 rovio=rovioapi.CRovioApiClient(g_strRovioIP,g_strLogin,g_strPwd)
 rovio.RefreshStatusInfo()
 
-print "Connected"
-    
 # Execute command
 if g_command=="get_version":
     print "Rovio version:",rovio.GetVersion()    
-
     # do we have a read mem etc command
 elif g_command=="read_mem":
     dumpfile=None
@@ -46,15 +44,16 @@ elif g_command=="read_mem":
     bytes = rovio.ReadMem(g_params[0],g_params[1],dumpfile)
     count=0
     if dumpfile:
-        print "Saved in:",dumpfile  
-    else:
-        for i in bytes:
-          print "0x%02x"%i,
-          count+=1
-          if count%8==0: print ""
-        print
+        print "\nSaved in:",dumpfile  
 elif g_command=="write_mem":
-	bytes = rovio.WriteMem(g_params[0],g_params[1])
+    filein=None
+    if g_params[1] =='hex':
+        bytes = rovio.WriteMem(g_params[0],g_params[2])
+    elif g_params[1] =='file':
+        bytes = rovio.WriteMem(g_params[0],"",g_params[2])
+    else:
+        print "unknown data format",g_params[1]
+        
 elif g_command=="reboot":
     bytes = rovio.Reboot()
   

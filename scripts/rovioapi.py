@@ -21,6 +21,9 @@ class CRovioApiClient:
       
       # For status variable
       self.dictStatus ={}
+      # Try to read version to see if things are ok 
+      self.version = self.GetVersion()
+      print "Connected to Rovio version:", self.version 
       
     def CGIGet(self,url):
        self.hConRovio.request("GET", url,None,self.extraHeaders)
@@ -67,30 +70,43 @@ class CRovioApiClient:
       bytes=[]
       toRead = eval(length)
       address=eval(start)
+      bytes_read=0
       while toRead>0:
         if toRead>0x200:
           size=0x200
         else:
           size = toRead
-        print "Reading from %08X - %04X bytes ..."%(address,size),  
+          
+        if not toFile:print
+        print "  Reading from %08X - %04X bytes ..."%(address,size),  
         output=self.CGIGet("/debug.cgi?action=read_mem&address=0x%08x&size=0x%08x"%(address,size))
         print "OK"
-        toRead -= size
-        address+=size
         lstLines=output.split("\n")[1:]
         if toFile:
           fileOut=open(toFile,"a")
         for i in lstLines:
           s = i[len("read_mem = "):].replace("\n","")
+          cur_address=address
           for b in s.split(" "):
             if len(b)==2:
               b=eval("0x"+b)
               if toFile :
                 fileOut.write(chr(b))
               else:
+                if bytes_read%8==0:
+                    print "\n0x%08X:"%(cur_address),
+                print "0x%02X"%(b),
+                cur_address+=1
+                bytes_read+=1  
                 bytes.append(b)
+        if not toFile: print
+                
+        toRead -= size
+        address+=size
       if toFile:
-        fileOut.close()                
+        fileOut.close()
+      else:
+        print                
       return bytes          
 
     def WriteMem(self,start,values,fromFile=None):
@@ -100,10 +116,20 @@ class CRovioApiClient:
           lstValues=open(fromFile,"r").read()
       else:
         lstValues=values.split(",")
+      written=0
+      print "Writing to %08X %d bytes:"%(address,len(lstValues))
       for i in lstValues:
-        output=self.CGIGet("/debug.cgi?action=write_mem&address=0x%08x&size=0x01&value=%s"%(address,i))
+        if fromFile:
+            val="0x%02X"%ord(i)
+        else:
+            val=i
+        output=self.CGIGet("/debug.cgi?action=write_mem&address=0x%08x&size=0x01&value=%s"%(address,val))
+        if written%8==0:
+            print "\n0x%08X: "%(address),
+        print val,
         address+=1
-        print "Write =>",i
+        written+=1
+      print
       return bytes          
 
     def Reboot(self):
