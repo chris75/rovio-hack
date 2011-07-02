@@ -14,7 +14,7 @@ class CRovioApiClient:
 
       self.password = password
       self.login    = login
-      print "Connect with",ip,port
+      print "Connect to Rovio at '%s' port '%d'"%(ip,port)
       self.hConRovio = httplib.HTTPConnection(ip,port)
       base64string = base64.encodestring('%s:%s' % (login, password))[:-1]
       self.extraHeaders ={"Authorization":"Basic %s" % base64string}
@@ -106,3 +106,7 @@ class CRovioApiClient:
         print "Write =>",i
       return bytes          
 
+    def Reboot(self):
+      """ Do warm reboot"""
+      self.CGIGet("/Reboot.cgi")
+      return           
