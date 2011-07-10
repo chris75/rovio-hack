@@ -3,6 +3,8 @@ http://192.168.0.14/ChangeBrightness.cgi?Brightness=10
 Patch pointer to "Version" string in memory string visible via  GetVer.cgi:
 http://192.168.0.14//debug.cgi?action=write_mem&address=0x70A14&value=0x9e&size=1
 
+GetVer.cgi => Addr: 0x0709D8
+
 
 http://192.168.0.14//debug.cgi?action=read_mem&&address=0x70A14
 http://192.168.0.14/SetLogo.cgi?showstring=Hello
