@@ -1,4 +1,5 @@
 
 /* Used ugly defs to inline call address */
 
-#define fw_AddHttpString ((void (*)( int  )) 0x1234)
+//void AddHttpValue(XML *pReturnXML, const char *pcString, const char *pcValue)
+#define fw_AddHttpValue ((void (*)( void *pReturnXML, const char *pcString, const char *pcValue )) 0x0006C34C)

@@ -5,7 +5,7 @@ LD=$(CROSS_COMPILE)-ld
 OBJCOPY=$(CROSS_COMPILE)-objcopy
 OBJDUMP=$(CROSS_COMPILE)-objdump
 
-CFLAGS=-I. -mcpu=xscale
+CFLAGS=-O2 -I. -mcpu=xscale
 
 OBJS=objs/init.o 
 
@@ -20,9 +20,7 @@ bin/sample:
 	@echo "----------------------------------------------"
 	@echo 
 	$(GCC) $(CFLAGS) -c -o objs/sample.o src/sample.c
-	#$(GCC) -c -o objs/init.o minilib/init.c
-	#$(AS) -o objs/stubs.o minilib/stubs.asm
-	$(LD) -Tminilib/rovio.ld -Bstatic -o bin/sample.elf objs/sample.o
+	$(LD) -Tminilib/rovio-getver.ld -Bstatic -o bin/sample.elf objs/sample.o
 	$(OBJCOPY) -O binary -S bin/sample.elf bin/sample.bin 
 	@echo
 	@echo "Done."
