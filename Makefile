@@ -28,6 +28,9 @@ clean:
 	rm objs/*
 	rm bin/*
 
+upload_sample:
+	./scripts/roviocmd.py $ROVIOIP $ROVIOUSER $ROVIOPWD write_mem 0x000709D8 file bin/sample.bin
+
 
 showdump:
 	$(OBJDUMP) -b elf32-littlearm -d bin/sample.elf
