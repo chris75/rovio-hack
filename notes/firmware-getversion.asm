@@ -1,10 +1,12 @@
 
 GetVer.cgi => Addr: 0x0709D8
 
+// int Config_GetVer(HTTPCONNECTION hConnection, LIST *pParamList, int iAction, XML *pReturnXML)
+
 000709D8 Config_GetVer                           ; DATA XREF: off_86420o
 000709D8                 STMFD   SP!, {R4,LR}
-000709DC                 MOV     R4, R3
-000709E0                 CMP     R2, #0
+000709DC                 MOV     R4, R3          ;# R3= pReturnXML
+000709E0                 CMP     R2, #0		 ;# R2= iAction
 000709E4                 BEQ     l709FC
 000709E8                 CMP     R2, #1
 000709EC                 MOVLNE  R0, 0xFFFFFFFF
@@ -18,7 +20,7 @@ GetVer.cgi => Addr: 0x0709D8
 00070A00                 MOV     R2, R0
 00070A04                 MOV     R0, R4
 00070A08                 LDR     R1, =aVersion
-00070A0C                 BL      AddHttpValue
+00070A0C                 BL      AddHttpValue    ; void AddHttpValue(XML *pReturnXML, const char *pcString, const char *pcValue)
 00070A10                 B       loc_709F4
 00070A14 off_70A14       DCD aVersion            ; DATA XREF: Config_GetVer+30r
 00070A14                                         ; "Version"
