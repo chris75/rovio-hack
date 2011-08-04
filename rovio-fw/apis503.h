@@ -8,7 +8,10 @@
 #define fw_prdAddTask (((void (*)( void *pHandle, void *pFunc, unsigned long timeout, void *pArg )) 0x000C9E70)  
 
 // void ledShowState_Ready() 
-#define fw_ledShowStateready (((void (*)( )) 0x0001234) //##
+#define fw_ledShowStateReady (((void (*)( )) 0x0001234) //## TO FIX
+
+// void ledShowState_PoweredOn() 
+#define fw_ledShowStatePoweredOn (((void (*)( )) 0x000BDBD4) 
 
 // void ledShowState_Error() 
-#define fw_ledShowStateready (((void (*)( )) 0x000BDAEC) 
+#define fw_ledShowStateError     (((void (*)( )) 0x000BDAEC) 
