@@ -9,29 +9,33 @@ CFLAGS=-O2 -I. -mcpu=xscale
 
 OBJS=objs/init.o 
 
-all: bin/sample
+all: bin/patch-getver
+
+
+demo-patch-getver: bin/patch-getver upload_patch-getver
+	@echo "Done"
 	
 minilib/stubs.o: minilib/stubs.asm
 	$(AS) -o minilib/stubs.o minilib/stubs.asm 
 
-bin/sample:
+bin/patch-getver:
 	@echo
-	@echo "Compile sample arm program to patch Rovio with"
+	@echo "Compile patch-getver arm program to patch Rovio with"
 	@echo "----------------------------------------------"
 	@echo 
-	$(GCC) $(CFLAGS) -c -o objs/sample.o src/sample.c
-	$(LD) -Tminilib/rovio-getver.ld -Bstatic -o bin/sample.elf objs/sample.o
-	$(OBJCOPY) -O binary -S bin/sample.elf bin/sample.bin 
+	$(GCC) $(CFLAGS) -c -o objs/patch-getver.o src/patch-getver.c
+	$(LD) -Tminilib/rovio-getver.ld -Bstatic -o bin/patch-getver.elf objs/patch-getver.o
+	$(OBJCOPY) -O binary -S bin/patch-getver.elf bin/patch-getver.bin 
 	@echo
 	@echo "Done."
 clean:
 	rm objs/*
 	rm bin/*
 
-upload_sample:
-	./scripts/roviocmd.py $ROVIOIP $ROVIOUSER $ROVIOPWD write_mem 0x000709D8 file bin/sample.bin
-
+upload_patch-getver:
+	@echo "Uploading with command:" ./scripts/roviocmd.py $(ROVIOIP) $(ROVIOUSER) $(ROVIOPWD) write_mem 0x000709D8 file bin/patch-getver.bin
+	./scripts/roviocmd.py $(ROVIOIP) $(ROVIOUSER) $(ROVIOPWD) write_mem 0x000709D8 file bin/patch-getver.bin
 
 showdump:
-	$(OBJDUMP) -b elf32-littlearm -d bin/sample.elf
+	$(OBJDUMP) -b elf32-littlearm -d bin/patch-getver.elf
 	

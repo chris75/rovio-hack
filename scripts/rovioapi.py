@@ -7,14 +7,14 @@ g_iColCount=0
 
 class CRovioApiClient:
     def __init__(self, ip,login,password):
-      port=80
+      port="80"
       # If ip has port info ie: 192.168.1:8080
       if ':' in ip:
         (ip,port)=ip.split(':')
 
       self.password = password
       self.login    = login
-      print "Connect to Rovio at '%s' port '%d'"%(ip,port)
+      print "Connect to Rovio at '%s' port '%s'"%(ip,port)
       self.hConRovio = httplib.HTTPConnection(ip,port)
       base64string = base64.encodestring('%s:%s' % (login, password))[:-1]
       self.extraHeaders ={"Authorization":"Basic %s" % base64string}
