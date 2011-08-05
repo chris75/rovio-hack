@@ -136,3 +136,8 @@ class CRovioApiClient:
       """ Do warm reboot"""
       self.CGIGet("/Reboot.cgi")
       return           
+
+    def Malloc(self,size):
+      """ Allocate memory in bytes """
+      res=self.CGIGet("/debug.cgi?action=malloc&size=%s"%size)
+      return res

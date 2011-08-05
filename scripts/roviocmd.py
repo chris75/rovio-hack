@@ -11,6 +11,7 @@ if len(sys.argv) < 4:
   print """ cmd:
      get_version                          # Returns version of Rovio firmware should be 5.03
      reboot                               # Warm reboot now
+     malloc  <len>                        # Allocate len bytes of memory in Rovio RAM 
      read_mem <addr> <len> [<file-name>]  # Reads len bytes at address addr from Rovio memory and eventually save in file
      write_mem <addr> hex  <hexstring>    # write to Rovio memory at <addr>, hex string like 0x01,0x02,.....
      write_mem <addr> file <filename>     # write to Rovio memory at <addr> content of <filename> 
@@ -53,8 +54,10 @@ elif g_command=="write_mem":
         bytes = rovio.WriteMem(g_params[0],"",g_params[2])
     else:
         print "unknown data format",g_params[1]
-        
 elif g_command=="reboot":
     bytes = rovio.Reboot()
+elif g_command=="malloc":
+    pointer = rovio.Malloc(g_params[0])
+    print "Allocated %s bytes at address: %s"%(g_params[0],pointer)
   
 print "Done"
