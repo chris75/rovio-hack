@@ -1,3 +1,22 @@
+/* Constants  */
+
+    /* System Address Map */
+
+#define    GPIO_BA   0x7FF00300 /* GPIO Control */
+
+    /* GPIOs */
+
+/* GPIO-B Pins */
+#define REG_GPIOB_OE		(GPIO_BA+0x30)   /* GPIO-B Pins Output Enable Control Register */
+#define REG_GPIOB_DAT		(GPIO_BA+0x34)   /* GPIO-B Pins Data Register */
+#define REG_GPIOB_STS		(GPIO_BA+0x38)   /* GPIO-B Pins Status Register */
+#define REG_GPIOB_PE		(GPIO_BA+0x3c)   /* GPIO-B Pull-Up/Down Enable Control Register */
+
+
+    /* LEDs  */ 
+
+#define LED_GPIO_RED	 0x01000000
+#define	LED_GPIO_GREEN	 0x02000000
 
 /* Used ugly defs to inline call address */
 
