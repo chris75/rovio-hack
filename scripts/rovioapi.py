@@ -140,4 +140,12 @@ class CRovioApiClient:
     def Malloc(self,size):
       """ Allocate memory in bytes """
       res=self.CGIGet("/debug.cgi?action=malloc&size=%s"%size)
-      return res
+      addr="0"
+      total_size="0"
+      lines=res.split("\n")
+      if len(lines)>=2:
+        addr=lines[0].split('=')[1]
+        addr=addr.strip()
+        total_size=lines[1].split('=')[1]
+        total_size=total_size.strip()
+      return (addr,total_size)

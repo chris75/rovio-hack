@@ -57,7 +57,7 @@ elif g_command=="write_mem":
 elif g_command=="reboot":
     bytes = rovio.Reboot()
 elif g_command=="malloc":
-    pointer = rovio.Malloc(g_params[0])
-    print "Allocated %s bytes at address: %s"%(g_params[0],pointer)
+    (pointer,total) = rovio.Malloc(g_params[0])
+    print "Allocated %s bytes at address: %s (%s allocated via malloc)"%(g_params[0],pointer,total)
   
 print "Done"
