@@ -18,6 +18,11 @@
 #define LED_GPIO_RED	 0x01000000
 #define	LED_GPIO_GREEN	 0x02000000
 
+/* Rovio patch constants */
+
+#define ROVIO_RAM_MALLOC_BASE_ADDR      0x70e000 /* Where 'PATC" marker is store to indicate patch was loaded */
+#define ROVIO_RAM_PATCH_BASE_ADDR       0x20     /* Entry point for patch */
+
 /* Used ugly defs to inline call address */
 
 //void AddHttpValue(XML *pReturnXML, const char *pcString, const char *pcValue)
