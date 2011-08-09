@@ -9,7 +9,7 @@ CFLAGS=-O2 -I. -mcpu=xscale
 
 OBJS=objs/init.o 
 
-all: bin/patch-getver
+all: bin/patch-getver demo-patch-firmware
 
 
 demo-patch-firmware:bin/patch-getver bin/blink-leds.bin
@@ -25,7 +25,7 @@ minilib/stubs.o: minilib/stubs.asm
 
 bin/patch-getver:
 	@echo
-	@echo "Compile patch-getver arm program to patch Rovio with"
+	@echo "Compiling patch-getver arm program to patch Rovio with"
 	@echo "----------------------------------------------"
 	@echo 
 	$(GCC) $(CFLAGS) -c -o objs/patch-getver.o src/patch-getver.c
@@ -33,6 +33,18 @@ bin/patch-getver:
 	$(OBJCOPY) -O binary -S bin/patch-getver.elf bin/patch-getver.bin 
 	@echo
 	@echo "Done."
+
+bin/blink-leds.bin: src/demo-leds.c
+	@echo
+	@echo "Compiling demo-leds patch for Rovio"
+	@echo "-----------------------------------"
+	@echo 
+	$(GCC) $(CFLAGS) -c -o objs/demo-leds.o src/demo-leds.c
+	$(LD) -Tminilib/rovio-ram.ld -Bstatic -o bin/demo-leds.elf objs/demo-leds.o
+	$(OBJCOPY) -O binary -S bin/demo-leds.elf bin/demo-leds.bin 
+	@echo
+	@echo "Done."
+
 clean:
 	rm objs/*
 	rm bin/*
