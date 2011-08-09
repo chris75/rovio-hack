@@ -13,8 +13,8 @@ all: bin/patch-getver demo-patch-firmware
 
 
 demo-patch-firmware:bin/patch-getver bin/blink-leds.bin
-	echo "Uploading fw patch with command: ./scripts/roviocmd.py $(ROVIOIP) $(ROVIOUSER) $(ROVIOPWD) patch_fw bin/patch-getver.bin 0x000709D8 bin/blink-leds 0x70e020"
-	./scripts/roviocmd.py $(ROVIOIP) $(ROVIOUSER) $(ROVIOPWD) patch_fw bin/patch-getver.bin 0x000709D8 bin/blink-leds 0x70e020
+	echo "Uploading fw patch with command: ./scripts/roviocmd.py $(ROVIOIP) $(ROVIOUSER) $(ROVIOPWD) patch_fw bin/patch-getver.bin 0x000709D8 bin/blink-leds.bin 0x70e020"
+	./scripts/roviocmd.py $(ROVIOIP) $(ROVIOUSER) $(ROVIOPWD) patch_fw bin/patch-getver.bin 0x000709D8 bin/blink-leds.bin 0x70e020
 	@echo "Done"
 
 demo-patch-getver: bin/patch-getver upload_patch-getver
