@@ -11,6 +11,22 @@ OBJS=objs/init.o
 
 all: bin/patch-getver demo-patch-firmware
 
+include rovio.local
+
+config-test: rovio.local
+	@echo 
+	@echo "Checking Rovio settings ..."
+	@echo "  IP is  : "$(ROVIOIP)
+	@echo "  User is: "$(ROVIOUSER)
+	@echo "  Pwd  is: xxx"
+	@echo 
+	@echo "  Testing connection to Rovio"
+	./scripts/roviocmd.py $(ROVIOIP) $(ROVIOUSER) $(ROVIOPWD) get_version
+
+
+rovio.local:
+	@echo "You should copy rovio.local.sample to rovio.local and edit for your rovio settings"
+
 
 demo-patch-firmware:bin/patch-getver bin/blink-leds.bin
 	echo "Uploading fw patch with command: ./scripts/roviocmd.py $(ROVIOIP) $(ROVIOUSER) $(ROVIOPWD) patch_fw bin/patch-getver.bin 0x000709D8 bin/blink-leds.bin 0x70e020"
