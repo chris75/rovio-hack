@@ -1,0 +1,7 @@
+# copy this file as rovio.local and update for your Rovio settings
+# Set address of your Rovio like 192.168.0.1 or 192.168.1:8080 if you changed port of Rovio WEB access to 8080 
+ROVIOIP=<ip>[:<port>]
+
+# Administrator login / passwd
+ROVIOUSER=admin
+ROVIOPWD=mysecret
