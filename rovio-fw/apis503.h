@@ -23,6 +23,10 @@
 #define ROVIO_RAM_MALLOC_BASE_ADDR      0x70e000 /* Where 'PATC" marker is store to indicate patch was loaded */
 #define ROVIO_RAM_PATCH_BASE_ADDR       0x20     /* Entry point for patch */
 
+/* Rovio FW defines / types */
+
+#include "rovio-types.h"
+
 /* Used ugly defs to inline call address */
 
 //void AddHttpValue(XML *pReturnXML, const char *pcString, const char *pcValue)
@@ -39,3 +43,7 @@
 
 // void ledShowState_Error() 
 #define fw_ledShowStateError     (((void (*)( )) 0x000BDAEC) 
+
+// int mcuSendCommand(const void *pCmd, size_t szCmdLen, void *pResponse, size_t szResponseLen);
+#define fw_mcuSendCommand (((void (*)( )) 0x00090970)
+
