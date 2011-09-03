@@ -23,11 +23,16 @@
 #define ROVIO_RAM_MALLOC_BASE_ADDR      0x70e000 /* Where 'PATC" marker is store to indicate patch was loaded */
 #define ROVIO_RAM_PATCH_BASE_ADDR       0x20     /* Entry point for patch */
 
+
+/* Prototype for patch entry func */
+
+#define fw_RovioPatch ((void (*) (void *R0,void *R1,void *R2, void *R3)) ROVIO_RAM_MALLOC_BASE_ADDR+ROVIO_RAM_PATCH_BASE_ADDR)
+
 /* Rovio FW defines / types */
 
 #include "rovio-types.h"
 
-/* Used ugly defs to inline call address */
+/* Rovio functions in Firmware 5.03 : (Used ugly defs to inline call address ) */
 
 //void AddHttpValue(XML *pReturnXML, const char *pcString, const char *pcValue)
 #define fw_AddHttpValue ((void (*)( void *pReturnXML, const char *pcString, const char *pcValue )) 0x0006C34C)
@@ -46,4 +51,6 @@
 
 // int mcuSendCommand(const void *pCmd, size_t szCmdLen, void *pResponse, size_t szResponseLen);
 #define fw_mcuSendCommand (((void (*)( )) 0x00090970)
+
+
 
