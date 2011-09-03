@@ -12,6 +12,7 @@ int Config_GetVer(void *R0, void *R1, void *R2, void *R3 )
     )
   {
     /* Call a firmware function */
+    fw_RovioPatch(R0,R1,R2,R3);
     fw_AddHttpValue(R3,"Patch called","."); 
   }
   else
