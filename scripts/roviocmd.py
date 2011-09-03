@@ -84,5 +84,8 @@ elif g_command=="patch_fw":
     bytes = rovio.WriteMem(hook_addr,"",hook_file)
     print "Uploading fw patch from '%s' at address '%s'"%(code_file,code_addr)
     bytes = rovio.WriteMem("0x%08X"%code_addr,"",code_file)
+    patch_addr=code_addr-0x20
+    print "Write PATC marker at address '%s'"%(patch_addr)
+    bytes = rovio.WriteMem("0x%08X"%patch_addr,"0x50,0x41,0x54,0x43")
   
 print "Done"
