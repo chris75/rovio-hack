@@ -9,7 +9,7 @@ CFLAGS=-O2 -I. -mcpu=xscale
 
 OBJS=objs/init.o 
 
-all: bin/patch-getver demo-patch-firmware
+all: rovio.local bin/patch-getver demo-patch-firmware
 
 include rovio.local
 
@@ -26,6 +26,7 @@ config-test: rovio.local
 
 rovio.local:
 	@echo "You should copy rovio.local.sample to rovio.local and edit for your rovio settings"
+	ls -l rovio.local
 
 
 demo-patch-firmware:bin/patch-getver bin/blink-leds.bin
