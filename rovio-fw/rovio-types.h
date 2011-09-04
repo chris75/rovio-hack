@@ -22,4 +22,22 @@ typedef struct
 
 } MPU_CMD_T;
 
+typedef unsigned long long cyg_tick_count_t;
+
+typedef struct tagList
+{
+	struct tagList *pPrev;
+	struct tagList *pNext;
+} LIST_T;
+
+typedef struct tagPRD_TASK
+{
+	void (*fnTask)(void *pArg);
+	void *pArg;
+	cyg_tick_count_t tTimeout;
+	cyg_tick_count_t tRemain;
+	LIST_T list;
+
+} PRD_TASK_T;
+
 
