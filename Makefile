@@ -40,7 +40,7 @@ demo-patch-getver: bin/patch-getver upload_patch-getver
 minilib/stubs.o: minilib/stubs.asm
 	$(AS) -o minilib/stubs.o minilib/stubs.asm 
 
-bin/patch-getver:
+bin/patch-getver: src/patch-getver.c
 	@echo
 	@echo "Compiling patch-getver arm program to patch Rovio with"
 	@echo "----------------------------------------------"
@@ -51,7 +51,7 @@ bin/patch-getver:
 	@echo
 	@echo "Done."
 
-bin/blink-leds.bin: src/demo-leds.c
+bin/demo-leds.bin: src/demo-leds.c
 	@echo
 	@echo "Compiling demo-leds patch for Rovio"
 	@echo "-----------------------------------"
