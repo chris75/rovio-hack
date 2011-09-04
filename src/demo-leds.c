@@ -11,17 +11,17 @@ void InitPatch(void *R0, void *R1, void *R2, void *R3 )
 
 {
   /* Call a firmware function */
-  fw_prdAddTask(&g_hTask,MyTickFunc,500 ,0);
+  fw_prdAddTask(&g_hTask,MyTickFunc,1000 ,0);
   /* Report everything ok  */
   
   fw_AddHttpValue(R3,"Patch demo led installed","."); 
-//  MyTickFunc(); 
+  MyTickFunc(); 
 }
 
 /* Increment ascii code of a char in GetVer message */
-void MyTickFunc()
+void MyTickFunc(void *pArg)
 {
   char *pStr=0x70e003;
-  *pStr++;
+  *pStr+=1;
 }
 
