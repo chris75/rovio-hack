@@ -16,7 +16,7 @@ void InitPatch(void *R0, void *R1, void *R2, void *R3 )
   /* Report everything ok  */
   
   fw_AddHttpValue(R3,"Patch demo led installed","."); 
-  mcuSimpleTestCommand();
+  mcuSimpleTestCommand(R3);
 //  MyTickFunc(); 
 }
 
