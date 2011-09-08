@@ -16,19 +16,25 @@ void InitPatch(void *R0, void *R1, void *R2, void *R3 )
   /* Report everything ok  */
   
   fw_AddHttpValue(R3,"Patch demo led installed","."); 
+  mcuSimpleTestCommand();
 //  MyTickFunc(); 
 }
 
 void mcuSimpleTestCommand(void *R3 )
 {
-  char szCommand[] = "114D4D00010053485254000100011A150000";
+  char szCommand[] = "114D4D00010053485254000100011A150000"; 
+  // 114D4D00010053485254000100011A120000 // 2 Front leds off only 
   char szResponse[256];
   int rc;
   ICTL_HANDLE_T ictl;
   ictl.Privilege=AUTH_SYSTEM;
   
   rc = fw_ictlCtrlMCU(&ictl,szCommand,szResponse,sizeof(szResponse));
-  if (rc != ICTL_OK) 
+  if (rc == ICTL_OK) 
+  {
+    fw_AddHttpValue(R3,"MCU Send OK",".");
+  }
+  else
   {
     fw_AddHttpValue(R3,"MCU Send failed",".");
   }
