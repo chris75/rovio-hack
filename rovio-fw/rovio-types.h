@@ -41,3 +41,23 @@ typedef struct tagPRD_TASK
 } PRD_TASK_T;
 
 
+// 
+#define ICTL_OK			0
+#define ICTL_ERROR		(-1)
+#define ICTL_UNAUTHORIZED	(-2)
+#define ICTL_INVALID_PARAMETERS	(-3)
+
+#define AUTH_ANY -1
+#define AUTH_USER 0
+#define AUTH_ADMIN 1
+#define AUTH_SYSTEM 2
+
+typedef struct {
+    char Username[24];
+    char Passwd[24];
+    int Privilege;
+}ICTL_HANDLE_T;
+
+
+
+

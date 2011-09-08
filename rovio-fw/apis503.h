@@ -52,5 +52,5 @@
 // int mcuSendCommand(const void *pCmd, size_t szCmdLen, void *pResponse, size_t szResponseLen);
 #define fw_mcuSendCommand ((void (*)( )) 0x00090970)
 
-
-
+//int ictlCtrlMCU(ICTL_HANDLE_T *pHandle, const char *pcCommand, char *pcResponse, size_t szMaxResponse);
+#define fw_ictlCtrlMCU ((int  (*) (ICTL_HANDLE_T *pHandle,const char * pcCommand, char *pcResponse,unsigned long )) 0x000B8098)
