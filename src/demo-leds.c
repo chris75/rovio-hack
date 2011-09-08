@@ -11,4 +11,3 @@ void InitPatch(void *R0, void *R1, void *R2, void *R3 )
   return 0;
 }
 
-
