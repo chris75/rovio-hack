@@ -38,19 +38,19 @@
 #define fw_AddHttpValue ((void (*)( void *pReturnXML, const char *pcString, const char *pcValue )) 0x0006C34C)
 
 //void prdAddTask(PRD_TASK_T *pHandle, void (*fnTask)(void *pArg), cyg_tick_count_t tTimeout, void *pArg);
-#define fw_prdAddTask (((void (*)( void *pHandle, void *pFunc, unsigned long timeout, void *pArg )) 0x000C9E70)  
+#define fw_prdAddTask ((void (*)( void *pHandle, void *pFunc, unsigned long timeout, void *pArg )) 0x000C9E70)  
 
 // void ledShowState_Ready() 
-#define fw_ledShowStateReady (((void (*)( )) 0x0001234) //## TO FIX
+#define fw_ledShowStateReady ((void (*)( )) 0x0001234) //## TO FIX
 
 // void ledShowState_PoweredOn() 
-#define fw_ledShowStatePoweredOn (((void (*)( )) 0x000BDBD4) 
+#define fw_ledShowStatePoweredOn ((void (*)( )) 0x000BDBD4) 
 
 // void ledShowState_Error() 
-#define fw_ledShowStateError     (((void (*)( )) 0x000BDAEC) 
+#define fw_ledShowStateError     ((void (*)( )) 0x000BDAEC) 
 
 // int mcuSendCommand(const void *pCmd, size_t szCmdLen, void *pResponse, size_t szResponseLen);
-#define fw_mcuSendCommand (((void (*)( )) 0x00090970)
+#define fw_mcuSendCommand ((void (*)( )) 0x00090970)
 
 //int ictlCtrlMCU(ICTL_HANDLE_T *pHandle, const char *pcCommand, char *pcResponse, size_t szMaxResponse);
-#define fw_ictlCtrlMCU (((void (*) (ICTL_HANDLE_T *pHandle,const char * pcCommand, char *pcResponse,unsigned long )) 0x000B8098)
+#define fw_ictlCtrlMCU ((int  (*) (ICTL_HANDLE_T *pHandle,const char * pcCommand, char *pcResponse,unsigned long )) 0x000B8098)
