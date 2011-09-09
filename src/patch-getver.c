@@ -5,22 +5,24 @@
 int Config_GetVer(void *R0, void *R1, void *R2, void *R3 ) 
 {
   /* Check if PATCH was loaded in RAM if so call it */
-  if(    ((char *)(ROVIO_RAM_MALLOC_BASE_ADDR))[0] == 'P' 
-      && ((char *)(ROVIO_RAM_MALLOC_BASE_ADDR))[1] == 'A'
-      && ((char *)(ROVIO_RAM_MALLOC_BASE_ADDR))[2] == 'T'
-      && ((char *)(ROVIO_RAM_MALLOC_BASE_ADDR))[3] == 'C'
+  char *ptrMarker = (char *)(ROVIO_RAM_MALLOC_BASE_ADDR);
+  if(    ptrMarker[0] == 'P' 
+      && ptrMarker[1] == 'A'
+      && ptrMarker[2] == 'T'
+      && ptrMarker[3] == 'C'+1 /* Trigger init on 2nd GetVer call using brower => called twice for some reason */
     )
   {
-    /* Call a firmware function */
-    fw_RovioPatch(R0,R1,R2,R3);
-    fw_AddHttpValue(R3,"Patch called","."); 
+      /* Call a firmware function */
+      fw_RovioPatch(R0,R1,R2,R3);
+      fw_AddHttpValue(R3,"Inited","."); 
   }
   else
   {
     /* Call a firmware function */
-    fw_AddHttpValue(R3,"Patch not found","!"); 
+    fw_AddHttpValue(R3,"Not found","!"); 
   }
-
+  /* Change last char of marker to avoid multiple invocation */
+  ptrMarker[3]++;
   return 0;
 }
 
