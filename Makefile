@@ -51,7 +51,7 @@ bin/patch-getver:
 	@echo
 	@echo "Done."
 
-bin/blink-leds.bin: src/demo-leds.c
+bin/demo-leds.bin: src/demo-leds.c
 	@echo
 	@echo "Compiling demo-leds patch for Rovio"
 	@echo "-----------------------------------"

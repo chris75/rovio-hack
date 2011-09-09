@@ -9,6 +9,7 @@ void InitPatch(void *R0, void *R1, void *R2, void *R3 )
   /* Do some stuff */ 
   /* Call a firmware function */
   fw_AddHttpValue(R3,"Patch demo led installed","."); 
+  mcuSimpleTestCommand(R3);
 }
 
 void mcuSimpleTestCommand(void *R3 )
@@ -23,6 +24,10 @@ void mcuSimpleTestCommand(void *R3 )
   if (rc != ICTL_OK) 
   {
     fw_AddHttpValue(R3,"MCU Send failed",".");
+  }
+  else
+  {
+    fw_AddHttpValue(R3,"MCU Send OK",".");
   }
 }
 
