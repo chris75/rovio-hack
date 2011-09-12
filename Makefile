@@ -51,16 +51,25 @@ bin/patch-getver: src/patch-getver.c
 	@echo
 	@echo "Done."
 
-bin/demo-leds.bin: src/demo-leds.c
-	@echo
-	@echo "Compiling demo-leds patch for Rovio"
+bin/demo-leds.bin: objs/start.o objs/demo-leds.o 
+	@echo "Linking demo-leds patch for Rovio"
 	@echo "-----------------------------------"
-	@echo 
-	$(GCC) $(CFLAGS) -c -o objs/demo-leds.o src/demo-leds.c
-	$(LD) -Tminilib/rovio-ram.ld -Bstatic -o bin/demo-leds.elf objs/demo-leds.o
+	$(LD) -Tminilib/rovio-ram.ld -Bstatic -o bin/demo-leds.elf objs/start.o objs/demo-leds.o
 	$(OBJCOPY) -O binary -S bin/demo-leds.elf bin/demo-leds.bin 
 	@echo
 	@echo "Done."
+
+objs/demo-leds.o: src/demo-leds.c 
+	@echo
+	@echo "Compiling demo-leds patch for Rovio"
+	@echo "-----------------------------------"
+	$(GCC) $(CFLAGS) -c -o objs/demo-leds.o src/demo-leds.c
+
+objs/start.o: minilib/start.asm
+	@echo
+	@echo "Assemble startup code"
+	@echo "---------------------"
+	$(AS) -o objs/start.o minilib/start.asm
 
 clean:
 	rm objs/*

@@ -17,7 +17,6 @@ void InitPatch(void *R0, void *R1, void *R2, void *R3 )
   
   fw_AddHttpValue(R3,"Patch demo led installed","."); 
   mcuSimpleTestCommand(R3);
-//  MyTickFunc(); 
 }
 
 void mcuSimpleTestCommand(void *R3 )
@@ -37,10 +36,6 @@ void mcuSimpleTestCommand(void *R3 )
   else
   {
     fw_AddHttpValue(R3,"MCU Send failed",".");
-  }
-  else
-  {
-    fw_AddHttpValue(R3,"MCU Send OK",".");
   }
 }
 
