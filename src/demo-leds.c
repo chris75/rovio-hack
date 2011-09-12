@@ -28,10 +28,12 @@ void mcuSimpleTestCommand(void *R3 )
   ICTL_HANDLE_T ictl;
   ictl.Privilege=AUTH_SYSTEM;
   
+  szResponse[0];
+  
   rc = fw_ictlCtrlMCU(&ictl,szCommand,szResponse,sizeof(szResponse));
   if (rc == ICTL_OK) 
   {
-    fw_AddHttpValue(R3,"MCU Send OK",".");
+    fw_AddHttpValue(R3,"MCU Send OK",szResponse);
   }
   else
   {
