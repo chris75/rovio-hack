@@ -72,4 +72,5 @@ upload_patch-getver:
 
 showdump:
 	$(OBJDUMP) -b elf32-littlearm -d bin/patch-getver.elf
+	$(OBJDUMP) -b elf32-littlearm -d bin/demo-leds.elf
 	
