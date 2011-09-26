@@ -54,3 +54,7 @@
 
 //int ictlCtrlMCU(ICTL_HANDLE_T *pHandle, const char *pcCommand, char *pcResponse, size_t szMaxResponse);
 #define fw_ictlCtrlMCU ((int  (*) (ICTL_HANDLE_T *pHandle,const char * pcCommand, char *pcResponse,unsigned long )) 0x000B8098)
+
+//int Config_ControlMCU(HTTPCONNECTION hConnection, LIST *pParamList, int iAction, XML *pReturnXML)
+#define fw_Config_ControlMCU ((int (*) ()) 0x123456)
+

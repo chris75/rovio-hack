@@ -40,6 +40,33 @@ typedef struct tagPRD_TASK
 
 } PRD_TASK_T;
 
+typedef void *HTTPCONNECTION;
+
+typedef struct tagLISTNODE
+
+{
+	void *pValue;
+	struct tagLISTNODE *pPreNode;
+	struct tagLISTNODE *pNextNode;
+	struct tagLIST *pList;
+} LISTNODE;
+
+typedef struct tagLIST
+{
+	LISTNODE *pFirstNode;
+	LISTNODE *pLastNode;
+} LIST;
+
+
+/* Define XML structure */
+typedef struct tagXML
+{
+	struct tagXML *pParXML;
+	LISTNODE *pParXMLNode;
+	char *pcName;
+	LIST *plAttrib;
+	LIST *plSubXML;
+} XML;
 
 // 
 #define ICTL_OK			0

@@ -21,7 +21,7 @@ void InitPatch(void *R0, void *R1, void *R2, void *R3 )
 
 void mcuSimpleTestCommand(void *R3 )
 {
-  char szCommand[] = "114D4D00010053485254000100011A150000"; 
+  char szCommand[] = "4D4D00010053485254000100011A150000"; 
   // 114D4D00010053485254000100011A120000 // 2 Front leds off only 
   char szResponse[256];
   int rc;
