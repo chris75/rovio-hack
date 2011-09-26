@@ -12,7 +12,7 @@ void InitPatch(void *R0, void *R1, void *R2, void *R3 )
 
 {
   /* Call a firmware function */
-  fw_prdAddTask(&g_hTask,MyTickFunc,1000 ,0);
+  fw_prdAddTask(&g_hTask,MyTickFunc,100 ,0);
   /* Report everything ok  */
   
   fw_AddHttpValue(R3,"Patch demo led installed","."); 
@@ -45,10 +45,38 @@ void mcuSimpleTestCommand(void *R3 )
   }
 }
 
+static char *s_szCommands[]=
+{ 
+ "4D4D00010053485254000100011A080000",
+ "4D4D00010053485254000100011A100000",
+ "4D4D00010053485254000100011A200000",
+ "4D4D00010053485254000100011A010000",
+ "4D4D00010053485254000100011A020000",
+ "4D4D00010053485254000100011A040000"
+};
+
+static int  s_iCount=0;
+static int  s_iDir=1;
+
 /* Increment ascii code of a char in GetVer message */
 void MyTickFunc(void *pArg)
 {
-  char *pStr=0x70e003;
-  *pStr+=1;
+
+  char szResponse[256];
+  int rc;
+  ICTL_HANDLE_T ictl;
+  ictl.Privilege=AUTH_SYSTEM;
+  szResponse[0]=0;
+  fw_ictlCtrlMCU(&ictl,s_szCommands[s_iCount],szResponse,sizeof(szResponse));
+  if ( s_iCount <= 0)
+  {
+    s_iDir=1;
+  }
+  else
+  {
+    if (s_iCount>=5) 
+      s_iDir=-1;
+  }
+  s_iCount += s_iDir;
 }
 
