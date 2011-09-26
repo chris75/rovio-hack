@@ -5,7 +5,9 @@ LD=$(CROSS_COMPILE)-ld
 OBJCOPY=$(CROSS_COMPILE)-objcopy
 OBJDUMP=$(CROSS_COMPILE)-objdump
 
-CFLAGS=-O2 -I. -mcpu=xscale
+CFLAGS=-O2 -g -I. -mcpu=xscale 
+
+LDFLAGS=-g
 
 OBJS=objs/init.o 
 
@@ -46,7 +48,7 @@ bin/patch-getver: src/patch-getver.c
 	@echo "----------------------------------------------"
 	@echo 
 	$(GCC) $(CFLAGS) -c -o objs/patch-getver.o src/patch-getver.c
-	$(LD) -Tminilib/rovio-getver.ld -Bstatic -o bin/patch-getver.elf objs/patch-getver.o
+	$(LD) $(LDFLAGS) -Tminilib/rovio-getver.ld -Bstatic -o bin/patch-getver.elf objs/patch-getver.o
 	$(OBJCOPY) -O binary -S bin/patch-getver.elf bin/patch-getver.bin 
 	@echo
 	@echo "Done."
@@ -80,6 +82,6 @@ upload_patch-getver:
 	./scripts/roviocmd.py $(ROVIOIP) $(ROVIOUSER) $(ROVIOPWD) write_mem 0x000709D8 file bin/patch-getver.bin
 
 showdump:
-	$(OBJDUMP) -b elf32-littlearm -d bin/patch-getver.elf
-	$(OBJDUMP) -b elf32-littlearm -d bin/demo-leds.elf
+	$(OBJDUMP) -b elf32-littlearm -g -d bin/patch-getver.elf
+	$(OBJDUMP) -b elf32-littlearm -g -d bin/demo-leds.elf
 	
