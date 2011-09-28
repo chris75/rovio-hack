@@ -36,6 +36,7 @@
 
 //void AddHttpValue(XML *pReturnXML, const char *pcString, const char *pcValue)
 #define fw_AddHttpValue ((void (*)( void *pReturnXML, const char *pcString, const char *pcValue )) 0x0006C34C)
+void AddHttpValue( void *pReturnXML, const char *pcString, const char *pcValue );
 
 //void prdAddTask(PRD_TASK_T *pHandle, void (*fnTask)(void *pArg), cyg_tick_count_t tTimeout, void *pArg);
 #define fw_prdAddTask ((void (*)( void *pHandle, void *pFunc, unsigned long timeout, void *pArg )) 0x000C9E70)  
@@ -58,3 +59,4 @@
 //int Config_ControlMCU(HTTPCONNECTION hConnection, LIST *pParamList, int iAction, XML *pReturnXML)
 #define fw_Config_ControlMCU ((int (*) ()) 0x123456)
 
+int  ictlCtrlMCU(ICTL_HANDLE_T *pHandle,const char * pcCommand, char *pcResponse,unsigned long );

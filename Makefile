@@ -7,7 +7,7 @@ OBJDUMP=$(CROSS_COMPILE)-objdump
 
 CFLAGS=-O2 -g -I. -mcpu=xscale 
 
-LDFLAGS=-g
+LDFLAGS=-g --just-symbols=./minilib/fw503-symbols.ld
 
 OBJS=objs/init.o 
 
@@ -56,7 +56,7 @@ bin/patch-getver: src/patch-getver.c
 bin/demo-leds.bin: objs/start.o objs/demo-leds.o 
 	@echo "Linking demo-leds patch for Rovio"
 	@echo "-----------------------------------"
-	$(LD) -Tminilib/rovio-ram.ld -Bstatic -o bin/demo-leds.elf objs/start.o objs/demo-leds.o
+	$(LD) $(LDFLAGS) -Tminilib/rovio-ram.ld -Bstatic -o bin/demo-leds.elf objs/start.o objs/demo-leds.o
 	$(OBJCOPY) -O binary -S bin/demo-leds.elf bin/demo-leds.bin 
 	@echo
 	@echo "Done."

@@ -15,7 +15,7 @@ void InitPatch(void *R0, void *R1, void *R2, void *R3 )
   fw_prdAddTask(&g_hTask,MyTickFunc,100 ,0);
   /* Report everything ok  */
   
-  fw_AddHttpValue(R3,"Patch demo led installed","."); 
+  AddHttpValue(R3,"Patch demo led installed","."); 
   mcuSimpleTestCommand(R3);
 }
 
@@ -35,13 +35,13 @@ void mcuSimpleTestCommand(void *R3 )
   {
     if(szResponse[0]==0) 
     { 
-      fw_AddHttpValue(R3,"Response unchanged",".");
+      AddHttpValue(R3,"Response unchanged",".");
     }
-    fw_AddHttpValue(R3,"MCU Send OK",szResponse);
+    AddHttpValue(R3,"MCU Send OK",szResponse);
   }
   else
   {
-    fw_AddHttpValue(R3,"MCU Send failed",".");
+    AddHttpValue(R3,"MCU Send failed",".");
   }
 }
 
@@ -67,7 +67,7 @@ void MyTickFunc(void *pArg)
   ICTL_HANDLE_T ictl;
   ictl.Privilege=AUTH_SYSTEM;
   szResponse[0]=0;
-  fw_ictlCtrlMCU(&ictl,s_szCommands[s_iCount],szResponse,sizeof(szResponse));
+  ictlCtrlMCU(&ictl,s_szCommands[s_iCount],szResponse,sizeof(szResponse));
   if ( s_iCount <= 0)
   {
     s_iDir=1;
