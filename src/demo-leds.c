@@ -12,7 +12,7 @@ void InitPatch(void *R0, void *R1, void *R2, void *R3 )
 
 {
   /* Call a firmware function */
-  fw_prdAddTask(&g_hTask,MyTickFunc,100 ,0);
+  prdAddTask(&g_hTask,MyTickFunc,100 ,0);
   /* Report everything ok  */
   
   AddHttpValue(R3,"Patch demo led installed","."); 
@@ -30,7 +30,7 @@ void mcuSimpleTestCommand(void *R3 )
   
   szResponse[0]=0;
   
-  rc = fw_ictlCtrlMCU(&ictl,szCommand,szResponse,sizeof(szResponse));
+  rc = ictlCtrlMCU(&ictl,szCommand,szResponse,sizeof(szResponse));
   if (rc == ICTL_OK) 
   {
     if(szResponse[0]==0) 

@@ -35,28 +35,24 @@
 /* Rovio functions in Firmware 5.03 : (Used ugly defs to inline call address ) */
 
 //void AddHttpValue(XML *pReturnXML, const char *pcString, const char *pcValue)
-#define fw_AddHttpValue ((void (*)( void *pReturnXML, const char *pcString, const char *pcValue )) 0x0006C34C)
 void AddHttpValue( void *pReturnXML, const char *pcString, const char *pcValue );
 
 //void prdAddTask(PRD_TASK_T *pHandle, void (*fnTask)(void *pArg), cyg_tick_count_t tTimeout, void *pArg);
-#define fw_prdAddTask ((void (*)( void *pHandle, void *pFunc, unsigned long timeout, void *pArg )) 0x000C9E70)  
+void prdAddTask( void *pHandle, void *pFunc, unsigned long timeout, void *pArg );
 
 // void ledShowState_Ready() 
-#define fw_ledShowStateReady ((void (*)( )) 0x0001234) //## TO FIX
+void ledShowStateReady();
 
 // void ledShowState_PoweredOn() 
-#define fw_ledShowStatePoweredOn ((void (*)( )) 0x000BDBD4) 
+void ledShowStatePoweredOn();
 
 // void ledShowState_Error() 
-#define fw_ledShowStateError     ((void (*)( )) 0x000BDAEC) 
+void ledShowStateError();
 
 // int mcuSendCommand(const void *pCmd, size_t szCmdLen, void *pResponse, size_t szResponseLen);
-#define fw_mcuSendCommand ((void (*)( )) 0x00090970)
+void mcuSendCommand() ;
 
 //int ictlCtrlMCU(ICTL_HANDLE_T *pHandle, const char *pcCommand, char *pcResponse, size_t szMaxResponse);
-#define fw_ictlCtrlMCU ((int  (*) (ICTL_HANDLE_T *pHandle,const char * pcCommand, char *pcResponse,unsigned long )) 0x000B8098)
+int ictlCtrlMCU(ICTL_HANDLE_T *pHandle,const char * pcCommand, char *pcResponse,unsigned long );
 
-//int Config_ControlMCU(HTTPCONNECTION hConnection, LIST *pParamList, int iAction, XML *pReturnXML)
-#define fw_Config_ControlMCU ((int (*) ()) 0x123456)
 
-int  ictlCtrlMCU(ICTL_HANDLE_T *pHandle,const char * pcCommand, char *pcResponse,unsigned long );
