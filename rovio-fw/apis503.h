@@ -23,6 +23,9 @@
 #define ROVIO_RAM_MALLOC_BASE_ADDR      0x70e000 /* Where 'PATC" marker is store to indicate patch was loaded */
 #define ROVIO_RAM_PATCH_BASE_ADDR       0x20     /* Entry point for patch */
 
+/* Some function addresses for Firwmare 5.03 */
+
+#define FW503_GET_VERSION 0x000709D8
 
 /* Prototype for patch entry func */
 
