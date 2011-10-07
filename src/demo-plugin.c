@@ -27,6 +27,7 @@ void InitPatch(void *R0, void *R1, void *R2, void *R3 )
 
 int MyGetVersion(void *R0, void *R1, void *R2, void *R3 )
 {
-   AddHttpValue(R3,"Hook installed ",".");  
+   snprintf(s_szDebugBuffer,sizeof(s_szDebugBuffer),"Test %d,%d",12,34);
+   AddHttpValue(R3,"Hook installed ",s_szDebugBuffer);  
    return 0;
 }
