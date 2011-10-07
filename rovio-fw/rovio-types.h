@@ -1,5 +1,8 @@
 // Types and constants for Rovio firmware 
 
+
+typedef long size_t;
+
 typedef struct
 
 {

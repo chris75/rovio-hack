@@ -32,8 +32,12 @@
 #define fw_RovioPatch ((void (*) (void *R0,void *R1,void *R2, void *R3)) ROVIO_RAM_MALLOC_BASE_ADDR+ROVIO_RAM_PATCH_BASE_ADDR)
 
 /* Rovio FW defines / types */
-
 #include "rovio-types.h"
+
+/* Prototypes for libc stuff */
+int  snprintf(char *buf, size_t len, const char *fmt, ...);
+void *malloc( size_t /* size */ );
+
 
 /* Rovio functions in Firmware 5.03 : (Used ugly defs to inline call address ) */
 
