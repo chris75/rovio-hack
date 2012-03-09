@@ -7,7 +7,8 @@ OBJDUMP=$(CROSS_COMPILE)-objdump
 
 CFLAGS=-O2 -g -I. -mcpu=xscale 
 
-LDFLAGS=-g --just-symbols=./minilib/fw503-symbols.ld
+#LDFLAGS=-g --just-symbols=./minilib/fw503-symbols.ld
+LDFLAGS=-g --just-symbols=./minilib/current-fw-symbols.ld
 
 OBJS=objs/init.o 
 
@@ -102,11 +103,15 @@ clean:
 	rm bin/*
 
 upload_patch-getver:
-	@echo "Uploading with command:" ./scripts/roviocmd.py $(ROVIOIP) $(ROVIOUSER) $(ROVIOPWD) write_mem 0x000709D8 file bin/patch-getver.bin
-	./scripts/roviocmd.py $(ROVIOIP) $(ROVIOUSER) $(ROVIOPWD) write_mem 0x000709D8 file bin/patch-getver.bin
+	@echo "Uploading with command:" ./scripts/roviocmd.py $(ROVIOIP) $(ROVIOUSER) $(ROVIOPWD) write_mem 0x00070b24 file bin/patch-getver.bin
+	./scripts/roviocmd.py $(ROVIOIP) $(ROVIOUSER) $(ROVIOPWD) write_mem 0x00070b24 file bin/patch-getver.bin
 
 showdump:
 	$(OBJDUMP) -b elf32-littlearm -g -d bin/patch-getver.elf
 	$(OBJDUMP) -b elf32-littlearm -g -d bin/demo-leds.elf
 	$(OBJDUMP) -b elf32-littlearm -g -d bin/demo-plugin.elf
+
+# Regenerate linker script from currently compiled firmware
+generate-ld-script: 
+	./scripts/lst2ldsym.py $(FIRMWARE_SYMBOL_FILE) minilib/current-fw-symbols.ld
 	
