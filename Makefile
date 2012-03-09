@@ -56,7 +56,7 @@ bin/patch-getver.bin: src/patch-getver.c
 	@echo "----------------------------------------------"
 	@echo 
 	$(GCC) $(CFLAGS) -c -o objs/patch-getver.o src/patch-getver.c
-	$(LD) $(LDFLAGS) -Tminilib/rovio-getver.ld -Bstatic -o bin/patch-getver.elf objs/patch-getver.o
+	$(LD) $(LDFLAGS) -T./minilib/rovio-getver.ld -Bstatic -o bin/patch-getver.elf objs/patch-getver.o
 	$(OBJCOPY) -O binary -S bin/patch-getver.elf bin/patch-getver.bin 
 	@echo
 	@echo "Done."

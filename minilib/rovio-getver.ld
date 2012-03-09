@@ -1,5 +1,5 @@
 SECTIONS {
-  .text 0x000709D8 : {
+  .text 0x00070b24 : {
                          *(.text)
                          *(.rodata)
                          *(.rodata.*)

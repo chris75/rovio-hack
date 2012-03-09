@@ -19,7 +19,7 @@ int Config_GetVer(void *R0, void *R1, void *R2, void *R3 )
   else
   {
     /* Call a firmware function */
-    AddHttpValue(R3,"Not found","!"); 
+    AddHttpValue(R3,"Plugin Not found","!"); 
   }
   /* Change last char of marker to avoid multiple invocation */
   ptrMarker[3]++;
