@@ -12,11 +12,14 @@ LDFLAGS=-g --just-symbols=./minilib/current-fw-symbols.ld
 
 OBJS=objs/init.o 
 
+include rovio.local
+
+# Get address for Config_GetVer this is the function we patch live to add plugin
+GETVER_ADDR=$(shell grep Config_GetVer ./minilib/current-fw-symbols.ld | sed 's/\(.*\) = \(.*\);/\2/g') 
+
 all: rovio.local bin/patch-getver.bin bin/demo-leds.bin bin/demo-plugin.bin
 	@echo " Compiled OK!"
 	@echo " Now do a make on one of: demo-patch-firmware  demo-plugin"
-
-include rovio.local
 
 config-test: rovio.local
 	@echo 
@@ -35,13 +38,13 @@ rovio.local:
 
 
 demo-patch-firmware:bin/patch-getver.bin bin/demo-leds.bin
-	echo "Uploading fw patch with command: ./scripts/roviocmd.py $(ROVIOIP) $(ROVIOUSER) $(ROVIOPWD) patch_fw bin/patch-getver.bin 0x000709D8 bin/blink-leds.bin 0x70e020"
-	./scripts/roviocmd.py $(ROVIOIP) $(ROVIOUSER) $(ROVIOPWD) patch_fw bin/patch-getver.bin 0x000709D8 bin/demo-leds.bin 0x70e020
+	echo "Uploading fw patch with command: ./scripts/roviocmd.py $(ROVIOIP) $(ROVIOUSER) $(ROVIOPWD) patch_fw bin/patch-getver.bin $(GETVER_ADDR) bin/blink-leds.bin 0x70e020"
+	./scripts/roviocmd.py $(ROVIOIP) $(ROVIOUSER) $(ROVIOPWD) patch_fw bin/patch-getver.bin $(GETVER_ADDR) bin/demo-leds.bin 0x70e020
 	@echo "Done"
 
 demo-plugin:bin/patch-getver.bin bin/demo-plugin.bin
-	echo "Uploading fw patch with command: ./scripts/roviocmd.py $(ROVIOIP) $(ROVIOUSER) $(ROVIOPWD) patch_fw bin/patch-getver.bin 0x000709D8 bin/demo-plugin.bin 0x70e020"
-	./scripts/roviocmd.py $(ROVIOIP) $(ROVIOUSER) $(ROVIOPWD) patch_fw bin/patch-getver.bin 0x000709D8 bin/demo-plugin.bin 0x70e020
+	echo "Uploading fw patch with command: ./scripts/roviocmd.py $(ROVIOIP) $(ROVIOUSER) $(ROVIOPWD) patch_fw bin/patch-getver.bin $(GETVER_ADDR) bin/demo-plugin.bin 0x70e020"
+	./scripts/roviocmd.py $(ROVIOIP) $(ROVIOUSER) $(ROVIOPWD) patch_fw bin/patch-getver.bin $(GETVER_ADDR) bin/demo-plugin.bin 0x70e020
 	@echo "Done"
 
 demo-patch-getver: bin/patch-getver upload_patch-getver
@@ -54,6 +57,8 @@ bin/patch-getver.bin: src/patch-getver.c
 	@echo
 	@echo "Compiling patch-getver arm program to patch Rovio with"
 	@echo "----------------------------------------------"
+	@echo 
+	@echo " *identified address of Config_GetVer to be :" $(GETVER_ADDR)
 	@echo 
 	$(GCC) $(CFLAGS) -c -o objs/patch-getver.o src/patch-getver.c
 	$(LD) $(LDFLAGS) -T./minilib/rovio-getver.ld -Bstatic -o bin/patch-getver.elf objs/patch-getver.o
@@ -104,7 +109,7 @@ clean:
 
 upload_patch-getver:
 	@echo "Uploading with command:" ./scripts/roviocmd.py $(ROVIOIP) $(ROVIOUSER) $(ROVIOPWD) write_mem 0x00070b24 file bin/patch-getver.bin
-	./scripts/roviocmd.py $(ROVIOIP) $(ROVIOUSER) $(ROVIOPWD) write_mem 0x00070b24 file bin/patch-getver.bin
+	./scripts/roviocmd.py $(ROVIOIP) $(ROVIOUSER) $(ROVIOPWD) write_mem $(GETVER_ADDR) file bin/patch-getver.bin
 
 showdump:
 	$(OBJDUMP) -b elf32-littlearm -g -d bin/patch-getver.elf
